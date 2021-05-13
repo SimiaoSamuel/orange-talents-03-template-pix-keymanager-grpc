@@ -9,4 +9,14 @@ datasources:
     password: ${DB_PASS:`password`}
     dialect: POSTGRES
 
-jpa.default.properties.hibernate.hbm2ddl.auto: create
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create-drop
+        show_sql: true
+
+periodictask:
+  initialdelay: ${TASK:5000ms}
+  balancerdelay: ${TASK:7000ms}

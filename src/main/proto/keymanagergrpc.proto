@@ -9,6 +9,7 @@ package br.com.zup.edu;
 
 service KeymanagergrpcService {
   rpc cria (CreateKeyRequest) returns (CreateKeyResponse) {}
+  rpc deleta (DeleteKeyRequest) returns (DeleteKeyResponse) {}
 }
 
 enum KeyType {
@@ -33,3 +34,10 @@ message CreateKeyRequest {
 message CreateKeyResponse {
   int64 idPix = 1;
 }
+
+message DeleteKeyRequest {
+  int64 idPix = 1;
+  string idCliente = 2;
+}
+
+message DeleteKeyResponse{}

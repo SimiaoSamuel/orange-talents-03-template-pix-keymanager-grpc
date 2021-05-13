@@ -1,13 +1,9 @@
 package br.com.zup.edu.httpclient
 
-import br.com.zup.edu.dto.CreatePixKeyRequest
-import br.com.zup.edu.dto.CreatePixKeyResponse
+import br.com.zup.edu.dto.*
 import br.com.zup.edu.handler.ErrorHandler
 import io.micronaut.http.MediaType
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.PathVariable
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 
 @Client
@@ -23,4 +19,13 @@ interface BacenClient {
         produces = [MediaType.APPLICATION_XML]
     )
     fun getPix(@PathVariable key: String): CreatePixKeyResponse?
+
+    @Delete(
+        "http://localhost:8082/api/v1/pix/keys/{key}", consumes = [MediaType.APPLICATION_XML],
+        produces = [MediaType.APPLICATION_XML]
+    )
+    fun deletePix(@PathVariable key: String, @Body request: DeletePixKeyRequest): DeletePixKeyResponse?
+
+    @Get("http://localhost:8082/api/v1/pix/keys", produces = [MediaType.APPLICATION_XML])
+    fun listAllPix(): PixKeysListResponse?
 }

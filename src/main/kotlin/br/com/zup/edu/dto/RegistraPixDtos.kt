@@ -67,7 +67,7 @@ data class NovaChavePix (
     val tipoDeConta: AccountType?
 )
 
-fun CreateKeyRequest.toModel(): NovaChavePix{
+fun CreateKeyRequest.toDto(): NovaChavePix{
     return NovaChavePix(this.idCliente,KeyTypeToValidate.valueOf(this.tipoChave.name),this.chave,this.tipoConta)
 }
 

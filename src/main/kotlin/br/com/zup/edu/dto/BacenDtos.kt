@@ -48,10 +48,15 @@ data class CreatePixKeyResponse(
     @JsonProperty val owner: Owner,
     @JsonProperty val createdAt: LocalDateTime
 ){
-    fun toPixModel(clienteId: String): Pix{
-        return Pix(key = key, keyType = keyType, owner = clienteId)
+    fun toPixModel(): Pix{
+        return Pix(key = key, keyType = keyType, owner = owner.taxIdNumber, accountType = bankAccount.accountType.toAccountType())
     }
 }
+
+data class DeletePixKeyRequest(
+    @JsonProperty val key: String,
+    @JsonProperty val participant: String
+)
 
 @OpenClass
 data class BankAccount(
@@ -70,7 +75,17 @@ data class Owner(
 
 @OpenClass
 enum class AccountBank {
-    CACC, SVGS;
+    CACC{
+        override fun toAccountType(): AccountType {
+            return AccountType.CONTA_CORRENTE
+        }
+    }, SVGS{
+        override fun toAccountType(): AccountType {
+            return AccountType.CONTA_POUPANCA
+        }
+    };
+
+    abstract fun toAccountType(): AccountType
 
     companion object {
         fun toBankType(type: AccountType): AccountBank {
@@ -86,4 +101,12 @@ enum class AccountBank {
 @OpenClass
 enum class PersonType {
     NATURAL_PERSON, LEGAL_PERSON
+}
+
+data class PixKeysListResponse(
+    @JsonProperty
+    val pixKeys: List<CreatePixKeyResponse>
+){
+    fun toModelList(){
+    }
 }

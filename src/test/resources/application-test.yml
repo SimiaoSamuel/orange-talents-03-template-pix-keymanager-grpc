@@ -5,3 +5,7 @@ datasources:
     username: sa
     dialect: H2
 jpa.default.properties.hibernate.hbm2ddl.auto: create
+
+periodictask:
+  initialdelay: ${TASK:10h}
+  balancerdelay: ${TASK:10h}

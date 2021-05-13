@@ -167,5 +167,4 @@ class RegistraChaveEndpointTest(
     fun erpClient(): ERPClient {
         return Mockito.mock(ERPClient::class.java)
     }
-
 }

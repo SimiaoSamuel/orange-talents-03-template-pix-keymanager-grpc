@@ -20,11 +20,15 @@ class ConstraintViolationExceptionHandler : ExceptionHandler<ConstraintViolation
             })
             .build()
 
+
         val statusProto = com.google.rpc.Status.newBuilder()
             .setCode(Code.INVALID_ARGUMENT_VALUE)
             .setMessage("Request with invalid data")
             .addDetails(Any.pack(details))
             .build()
+
+        println(statusProto)
+        println(details)
 
         return ExceptionHandler.StatusWithDetails(statusProto)
     }
