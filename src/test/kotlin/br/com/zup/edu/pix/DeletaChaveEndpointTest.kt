@@ -2,6 +2,7 @@ package br.com.zup.edu.pix
 
 import br.com.zup.edu.*
 import br.com.zup.edu.dto.*
+import br.com.zup.edu.dto.Titular
 import br.com.zup.edu.httpclient.BacenClient
 import br.com.zup.edu.httpclient.ERPClient
 import br.com.zup.edu.model.Pix
@@ -86,8 +87,10 @@ class DeletaChaveEndpointTest(
             Pix(
                 keyType = KeyType.CPF,
                 key = "18191010171",
-                accountType = AccountType.CONTA_POUPANCA,
-                owner = "xpto"
+                tipoConta = AccountType.CONTA_POUPANCA,
+                owner = Owner(PersonType.NATURAL_PERSON,"",""),
+                conta = BankAccount("","","",AccountBank.SVGS),
+                createdAt = LocalDateTime.now()
             )
         )
 
@@ -109,8 +112,10 @@ class DeletaChaveEndpointTest(
             Pix(
                 keyType = KeyType.CPF,
                 key = "18191010171",
-                accountType = AccountType.CONTA_POUPANCA,
-                owner = "xpto"
+                tipoConta = AccountType.CONTA_POUPANCA,
+                conta = BankAccount("","","",AccountBank.SVGS),
+                owner = Owner(PersonType.NATURAL_PERSON,"","xpto"),
+                createdAt = LocalDateTime.now()
             )
         )
 
@@ -132,8 +137,10 @@ class DeletaChaveEndpointTest(
             Pix(
                 keyType = KeyType.CPF,
                 key = "18191010171",
-                accountType = AccountType.CONTA_POUPANCA,
-                owner = "02467781054"
+                tipoConta = AccountType.CONTA_POUPANCA,
+                conta = BankAccount("","","",AccountBank.SVGS),
+                owner = Owner(PersonType.NATURAL_PERSON,"","02467781054"),
+                createdAt = LocalDateTime.now()
             )
         )
 

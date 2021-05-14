@@ -8,6 +8,7 @@ import br.com.zup.edu.validation.ValidKey
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.lang.RuntimeException
 import java.time.LocalDateTime
+import javax.persistence.Embeddable
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
@@ -49,7 +50,8 @@ data class CreatePixKeyResponse(
     @JsonProperty val createdAt: LocalDateTime
 ){
     fun toPixModel(): Pix{
-        return Pix(key = key, keyType = keyType, owner = owner.taxIdNumber, accountType = bankAccount.accountType.toAccountType())
+        return Pix(key = key, keyType = keyType, owner = owner,
+            tipoConta = bankAccount.accountType.toAccountType(), conta = bankAccount, createdAt = createdAt)
     }
 }
 
@@ -59,6 +61,7 @@ data class DeletePixKeyRequest(
 )
 
 @OpenClass
+@Embeddable
 data class BankAccount(
     val participant: String,
     val branch: String,
@@ -67,6 +70,7 @@ data class BankAccount(
 )
 
 @OpenClass
+@Embeddable
 data class Owner(
     val type: PersonType,
     val name: String,

@@ -2,6 +2,7 @@ package br.com.zup.edu.pix
 
 import br.com.zup.edu.*
 import br.com.zup.edu.dto.*
+import br.com.zup.edu.dto.Titular
 import br.com.zup.edu.httpclient.BacenClient
 import br.com.zup.edu.httpclient.ERPClient
 import br.com.zup.edu.repository.PixRepository

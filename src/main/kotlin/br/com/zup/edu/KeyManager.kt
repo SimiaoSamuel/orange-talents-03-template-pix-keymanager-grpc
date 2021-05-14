@@ -1,6 +1,8 @@
 package br.com.zup.edu
 
 import br.com.zup.edu.dto.toDto
+import br.com.zup.edu.dto.toPixChave
+import br.com.zup.edu.dto.toPixId
 import br.com.zup.edu.handler.ErrorHandler
 import io.grpc.stub.StreamObserver
 import javax.inject.Singleton
@@ -28,5 +30,18 @@ class KeyManager(
 
         responseObserver.onNext(response)
         responseObserver.onCompleted()
+    }
+
+    @ErrorHandler
+    override fun busca(request: SearchKeyRequest, responseObserver: StreamObserver<SearchKeyResponse>) {
+        val response = chooseMethodToSearch(request)
+
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
+    }
+
+    private fun chooseMethodToSearch(value: SearchKeyRequest): SearchKeyResponse {
+        return if(value.hasPixCliente()) service.buscaPix(value.toPixId())
+        else service.buscaPix(value.toPixChave())
     }
 }

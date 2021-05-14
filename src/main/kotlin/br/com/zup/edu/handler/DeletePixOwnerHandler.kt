@@ -4,9 +4,9 @@ import io.grpc.Status
 import javax.inject.Singleton
 
 @Singleton
-class DeletePixOwnerHandler: ExceptionHandler<DeletePixOwnerException> {
+class DeletePixOwnerHandler: ExceptionHandler<PixOwnerException> {
 
-    override fun handle(e: DeletePixOwnerException): ExceptionHandler.StatusWithDetails {
+    override fun handle(e: PixOwnerException): ExceptionHandler.StatusWithDetails {
         return ExceptionHandler.StatusWithDetails(
             Status.PERMISSION_DENIED
                 .withDescription(e.message)
@@ -15,6 +15,6 @@ class DeletePixOwnerHandler: ExceptionHandler<DeletePixOwnerException> {
     }
 
     override fun supports(e: Exception): Boolean {
-        return e is DeletePixOwnerException
+        return e is PixOwnerException
     }
 }

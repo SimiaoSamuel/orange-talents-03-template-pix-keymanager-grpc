@@ -14,7 +14,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import java.time.LocalDateTime
-import java.util.concurrent.CountDownLatch
 import javax.inject.Inject
 
 
@@ -50,7 +49,7 @@ class ScheduledTest(
     @Test
     fun `adiciona pix no banco se ele existir no bacen`() {
         bacenManager.syncPix()
-        Assertions.assertEquals(1L,pixRepository.count())
+        Assertions.assertEquals(1L, pixRepository.count())
         Assertions.assertFalse(pixRepository.findAll().isEmpty())
     }
 
@@ -60,11 +59,14 @@ class ScheduledTest(
             Pix(
                 keyType = KeyType.CPF,
                 key = "40028822200",
-                accountType = AccountType.CONTA_CORRENTE, owner = "81135157104"
+                tipoConta = AccountType.CONTA_CORRENTE,
+                conta = BankAccount("", "", "", AccountBank.CACC),
+                owner = Owner(PersonType.NATURAL_PERSON, "", "81135157104"),
+                createdAt = LocalDateTime.now()
             )
         )
         bacenManager.syncPix()
-        Assertions.assertEquals(1L,pixRepository.count())
+        Assertions.assertEquals(1L, pixRepository.count())
     }
 
     @Test
@@ -73,7 +75,10 @@ class ScheduledTest(
             Pix(
                 keyType = KeyType.CPF,
                 key = "48710110110",
-                accountType = AccountType.CONTA_CORRENTE, owner = "86135457004"
+                tipoConta = AccountType.CONTA_CORRENTE,
+                conta = BankAccount("", "", "", AccountBank.CACC),
+                owner = Owner(PersonType.NATURAL_PERSON, "", "81135157104"),
+                createdAt = LocalDateTime.now()
             )
         )
         bacenManager.syncPixBalancer()
@@ -95,7 +100,10 @@ class ScheduledTest(
             Pix(
                 keyType = KeyType.CPF,
                 key = "48710110110",
-                accountType = AccountType.CONTA_CORRENTE, owner = "86135457004"
+                tipoConta = AccountType.CONTA_CORRENTE,
+                conta = BankAccount("", "", "", AccountBank.CACC),
+                owner = Owner(PersonType.NATURAL_PERSON, "", "86135457004"),
+                createdAt = LocalDateTime.now()
             )
         )
 

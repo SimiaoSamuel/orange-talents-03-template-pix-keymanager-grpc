@@ -3,7 +3,6 @@ package br.com.zup.edu.dto
 import br.com.zup.edu.AccountType
 import br.com.zup.edu.CreateKeyRequest
 import br.com.zup.edu.OpenClass
-import br.com.zup.edu.validation.ExistsPixForThisClient
 import br.com.zup.edu.validation.ValidKey
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.core.annotation.Introspected
@@ -54,7 +53,6 @@ data class Titular(
 @ValidKey
 data class NovaChavePix (
     @field:NotBlank
-    @field:ExistsPixForThisClient
     @JsonProperty
     val clienteId: String?,
     @field:NotNull
@@ -96,4 +94,11 @@ enum class KeyTypeToValidate{
 
     abstract fun validate(key: String?): Boolean
 }
+
+data class Cliente(
+    val id: String,
+    val nome: String,
+    val cpf: String,
+    val instituicao: Institution
+)
 
