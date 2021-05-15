@@ -13,6 +13,7 @@ service KeymanagergrpcService {
   rpc cria (CreateKeyRequest) returns (CreateKeyResponse) {}
   rpc deleta (DeleteKeyRequest) returns (DeleteKeyResponse) {}
   rpc busca (SearchKeyRequest) returns (SearchKeyResponse) {}
+  rpc lista (ListKeyRequest) returns (ListKeyResponse) {}
 }
 
 enum KeyType {
@@ -81,4 +82,21 @@ message SearchKeyResponse{
   string idCliente = 2;
   PixKey pix = 3;
   google.protobuf.Timestamp dataCriacao = 4;
+}
+
+message ListKeyRequest{
+  string idCliente = 1;
+}
+
+message KeyEntityResponse{
+  int64 idPix = 1;
+  KeyType tipoChave = 2;
+  string chave = 3;
+  AccountType tipoConta = 4;
+  google.protobuf.Timestamp dataCriacao = 5;
+}
+
+message ListKeyResponse{
+  string idCliente = 1;
+  repeated KeyEntityResponse key = 2;
 }

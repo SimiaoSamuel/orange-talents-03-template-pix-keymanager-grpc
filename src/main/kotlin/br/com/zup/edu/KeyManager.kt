@@ -5,12 +5,13 @@ import br.com.zup.edu.dto.toPixChave
 import br.com.zup.edu.dto.toPixId
 import br.com.zup.edu.handler.ErrorHandler
 import io.grpc.stub.StreamObserver
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 @OpenClass
 class KeyManager(
-    val service: KeyService
+    @Inject private val service: KeyService
 ) : KeymanagergrpcServiceGrpc.KeymanagergrpcServiceImplBase() {
 
     @ErrorHandler
@@ -37,6 +38,15 @@ class KeyManager(
         val response = chooseMethodToSearch(request)
 
         responseObserver.onNext(response)
+        responseObserver.onCompleted()
+    }
+
+    @ErrorHandler
+    override fun lista(request: ListKeyRequest, responseObserver: StreamObserver<ListKeyResponse>) {
+        val toDto = request.toDto()
+        val listPix = service.listPix(toDto)
+
+        responseObserver.onNext(listPix)
         responseObserver.onCompleted()
     }
 

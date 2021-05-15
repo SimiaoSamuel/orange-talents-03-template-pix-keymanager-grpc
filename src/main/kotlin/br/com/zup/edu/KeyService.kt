@@ -35,8 +35,6 @@ class KeyService(
         val card = clientERP
             .getCard(request.clienteId!!, request.tipoDeConta!!.name) ?: throw ClienteNaoEncontradoException()
 
-        if (repository.existsByOwnerTaxIdNumber(card.titular.cpf)) throw PixDuplicadoException()
-
         val pixRequest = card.let {
             CreatePixKeyRequest.build(request, it)
         }
@@ -101,8 +99,28 @@ class KeyService(
             .build()
     }
 
+    fun listPix(@Valid request: ListPixRequest): ListKeyResponse {
+        val cliente = clientERP.getCliente(request.idCliente!!) ?: throw ClienteNaoEncontradoException()
+
+        val pix = repository.findByOwnerTaxIdNumber(cliente.cpf)
+        val map = pix.map {
+            KeyEntityResponse.newBuilder()
+                .setChave(it.key)
+                .setDataCriacao(timestamp(it.createdAt))
+                .setTipoConta(it.tipoConta)
+                .setTipoChave(it.keyType)
+                .setIdPix(it.id)
+                .build()
+        }
+
+        return ListKeyResponse.newBuilder()
+            .addAllKey(map)
+            .setIdCliente(request.idCliente)
+            .build()
+    }
+
     private fun buildResponse(pixResponse: Pix)
-    : PixKey {
+            : PixKey {
         val bankAccount = pixResponse.conta
         val accountType = bankAccount.accountType.toAccountType()
         val owner = pixResponse.owner
@@ -128,7 +146,7 @@ class KeyService(
         return pix
     }
 
-    protected fun timestamp(localDateTime: LocalDateTime): Timestamp? {
+    private fun timestamp(localDateTime: LocalDateTime): Timestamp? {
         val instant = localDateTime.toInstant(ZoneOffset.UTC)
         return Timestamp.newBuilder()
             .setSeconds(instant.epochSecond)
