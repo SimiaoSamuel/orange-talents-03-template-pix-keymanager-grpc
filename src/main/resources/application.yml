@@ -9,6 +9,10 @@ datasources:
     password: ${DB_PASS:`password`}
     dialect: POSTGRES
 
+pix:
+  itau-url: ${ITAU_URL:`http://localhost:9091`}
+  bcb-url: ${BCB_URL:`http://localhost:8082`}
+
 jpa:
   default:
     properties:

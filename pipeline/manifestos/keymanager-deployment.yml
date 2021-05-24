@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: keymanager-grpc-statefulset
+spec:
+  template:
+    metadata:
+      name: keymanager-grpc
+      labels:
+        app: keymanager-grpc
+    spec:
+      containers:
+        - name: keymanager-grpc-container
+          image: oriharakun10/keymanager-grpc:latest
+          ports:
+            - containerPort: 50051
+          envFrom:
+            - configMapRef:
+                name: keymanager-grpc-configmap
+            - secretRef:
+                name: keymanager-grpc-secret
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keymanager-grpc
+  serviceName: svc-keymanager-grpc

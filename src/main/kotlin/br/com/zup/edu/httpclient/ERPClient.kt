@@ -7,11 +7,11 @@ import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.QueryValue
 import io.micronaut.http.client.annotation.Client
 
-@Client
+@Client("\${pix.itau-url}")
 interface ERPClient {
-    @Get("http://localhost:9091/api/v1/clientes/{id}/contas")
+    @Get("/api/v1/clientes/{id}/contas")
     fun getCard(@PathVariable id: String, @QueryValue tipo: String): AccountDetails?
 
-    @Get("http://localhost:9091/api/v1/clientes/{id}")
+    @Get("/api/v1/clientes/{id}")
     fun getCliente(@PathVariable id: String): Cliente?
 }

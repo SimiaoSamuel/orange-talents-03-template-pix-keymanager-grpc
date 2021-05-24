@@ -55,6 +55,7 @@ class KeyService(
 
         val card =
             clientERP.getCard(request.clientId!!, pixModel.tipoConta.name) ?: throw ClienteNaoEncontradoException()
+
         val participant = card.instituicao.ispb
 
         if (pixModel.owner.taxIdNumber != card.titular.cpf) throw PixOwnerException()

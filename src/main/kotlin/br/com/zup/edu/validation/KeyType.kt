@@ -7,7 +7,6 @@ import io.micronaut.validation.validator.constraints.ConstraintValidatorContext
 import javax.inject.Singleton
 import javax.validation.Constraint
 import javax.validation.Payload
-import javax.validation.constraints.Email
 import kotlin.annotation.AnnotationTarget.*
 import kotlin.annotation.AnnotationRetention.*
 import kotlin.reflect.KClass

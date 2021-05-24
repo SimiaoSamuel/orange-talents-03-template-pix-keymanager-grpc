@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bcb-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8082
+      name: bcb-port
+      nodePort: 30006
+  selector:
+    app: bcb
+    network: external

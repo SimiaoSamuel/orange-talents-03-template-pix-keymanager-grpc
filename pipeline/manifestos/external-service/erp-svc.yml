@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: erp-service
+spec:
+  type: NodePort
+  ports:
+    - port: 9091
+      name: erp-port
+      nodePort: 30007
+  selector:
+    app: erp
+    network: external

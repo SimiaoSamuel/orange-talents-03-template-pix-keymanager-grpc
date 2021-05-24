@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-configmap
+data:
+  POSTGRES_USER: keycloak
+  POSTGRES_PASSWORD: password
+  POSTGRES_DB: keymanager
+  POSTGRES_HOST: postgres

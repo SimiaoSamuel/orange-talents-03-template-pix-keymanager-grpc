@@ -2,6 +2,7 @@ package br.com.zup.edu
 
 import br.com.zup.edu.dto.CreatePixKeyRequest
 import br.com.zup.edu.dto.NovaChavePix
+import br.com.zup.edu.handler.ErrorHandler
 import br.com.zup.edu.httpclient.BacenClient
 import br.com.zup.edu.httpclient.ERPClient
 import br.com.zup.edu.model.Pix
@@ -13,6 +14,7 @@ import java.lang.RuntimeException
 import javax.inject.Singleton
 
 @Singleton
+@OpenClass
 //@Requires(notEnv = ["test"])
 class BacenManager(
     val bacenClient: BacenClient,
