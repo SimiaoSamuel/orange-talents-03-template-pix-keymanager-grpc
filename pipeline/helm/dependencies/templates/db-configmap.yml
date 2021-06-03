@@ -1,0 +1,12 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "dependencies.fullname" . }}-db-configmap
+  labels:
+    {{- include "dependencies.labels" . | nindent 4 }}
+data:
+  POSTGRES_USER: {{ .Values.POSTGRES_USER | quote}}
+  POSTGRES_PASSWORD: {{ .Values.POSTGRES_PASSWORD | quote}}
+  POSTGRES_DB: {{ .Values.POSTGRES_DB | quote}}
+  POSTGRES_HOST: {{ .Values.POSTGRES_HOST | quote}}

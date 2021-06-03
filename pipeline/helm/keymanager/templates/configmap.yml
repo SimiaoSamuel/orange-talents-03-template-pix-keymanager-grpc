@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "keymanager-grpc-helm.fullname" . }}-configmap
+  labels:
+    {{- include "keymanager-grpc-helm.labels" . | nindent 8 }}
+data:
+  DB_URL: {{ .Values.DB_URL }}
+  DB_USER: {{ .Values.DB_USER }}
+  ITAU_URL: {{ .Values.ITAU_URL }}
+  BCB_URL: {{ .Values.BCB_URL }}

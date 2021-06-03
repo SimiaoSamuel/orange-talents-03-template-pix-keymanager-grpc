@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "keymanager-grpc-helm.fullname" . }}
+  labels:
+    {{- include "keymanager-grpc-helm.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: rpc
+      protocol: TCP
+      name: rpc
+  selector:
+    {{- include "keymanager-grpc-helm.selectorLabels" . | nindent 4 }}
